@@ -47,6 +47,7 @@ private: // User declarations
   TUpdatePathProc FUpdatePathProc;
   TMovePathProc   FMovePathProc;
   bool            FModified;
+  bool            FHasBeenModified;
   bool            FReadOnly;
   bool            FCanMove;
 public:  // User declarations
@@ -74,6 +75,7 @@ public:  // User declarations
   **/
   __property TMovePathProc   OnMove   = {read = FMovePathProc  , write = FMovePathProc};
   __property bool Modified = {read = FModified};
+  __property bool HasBeenModified = {read = FHasBeenModified};
 };
 
 //: @debug extern PACKAGE TfmPathEditor *fmPathEditor;

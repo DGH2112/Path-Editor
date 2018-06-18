@@ -2,7 +2,7 @@ object frmPathEditorMainForm: TfrmPathEditorMainForm
   Left = 0
   Top = 0
   Caption = 'Path Editor'
-  ClientHeight = 312
+  ClientHeight = 315
   ClientWidth = 524
   Color = clBtnFace
   Constraints.MinHeight = 350
@@ -18,7 +18,7 @@ object frmPathEditorMainForm: TfrmPathEditorMainForm
   OnDestroy = FormDestroy
   DesignSize = (
     524
-    312)
+    315)
   PixelsPerInch = 96
   TextHeight = 16
   object Label1: TLabel
@@ -35,7 +35,6 @@ object frmPathEditorMainForm: TfrmPathEditorMainForm
     Height = 16
     Anchors = [akLeft, akBottom]
     Caption = 'User Profile:'
-    ExplicitTop = 412
   end
   object btnClose: TBitBtn
     Left = 441
@@ -64,8 +63,6 @@ object frmPathEditorMainForm: TfrmPathEditorMainForm
     NumGlyphs = 2
     TabOrder = 2
     OnClick = btnCloseClick
-    ExplicitLeft = 541
-    ExplicitTop = 409
   end
   object pagPaths: TPageControl
     Left = 8
@@ -75,12 +72,8 @@ object frmPathEditorMainForm: TfrmPathEditorMainForm
     ActivePage = tabSystemPaths
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 0
-    ExplicitWidth = 608
-    ExplicitHeight = 395
     object tabSystemPaths: TTabSheet
       Caption = '&System Paths'
-      ExplicitWidth = 600
-      ExplicitHeight = 364
       inline SystemPathEditor: TfmPathEditor
         AlignWithMargins = True
         Left = 3
@@ -95,83 +88,56 @@ object frmPathEditorMainForm: TfrmPathEditorMainForm
         Font.Style = []
         ParentFont = False
         TabOrder = 0
-        ExplicitLeft = 3
-        ExplicitTop = 3
-        ExplicitWidth = 594
-        ExplicitHeight = 358
         inherited lblPath: TLabel
           Width = 488
-          ExplicitWidth = 588
         end
         inherited lblLength: TLabel
           Left = 416
-          ExplicitLeft = 516
         end
         inherited lbxPaths: TListBox
           Width = 407
           Height = 145
-          ExplicitWidth = 507
-          ExplicitHeight = 275
         end
         inherited edtPath: TButtonedEdit
           Top = 173
           Width = 407
-          ExplicitTop = 303
-          ExplicitWidth = 507
         end
         inherited btnReplace: TBitBtn
           Left = 173
           Top = 200
-          ExplicitLeft = 273
-          ExplicitTop = 330
         end
         inherited btnAdd: TBitBtn
           Left = 254
           Top = 200
-          ExplicitLeft = 354
-          ExplicitTop = 330
         end
         inherited btnDelete: TBitBtn
           Left = 335
           Top = 200
-          ExplicitLeft = 435
-          ExplicitTop = 330
         end
         inherited btnBrowse: TBitBtn
           Left = 416
           Top = 171
-          ExplicitLeft = 516
-          ExplicitTop = 301
         end
         inherited btnUpdate: TBitBtn
           Top = 200
-          ExplicitTop = 330
         end
         inherited btnUp: TBitBtn
           Left = 416
           Top = 111
-          ExplicitLeft = 516
-          ExplicitTop = 241
         end
         inherited btnDown: TBitBtn
           Left = 416
           Top = 142
-          ExplicitLeft = 516
-          ExplicitTop = 272
         end
         inherited btnMove: TBitBtn
           Left = 92
           Top = 200
-          ExplicitLeft = 192
-          ExplicitTop = 330
         end
       end
     end
     object tabUserPaths: TTabSheet
       Caption = '&User Paths'
       ImageIndex = 1
-      ExplicitWidth = 600
-      ExplicitHeight = 364
       inline UserPathEditor: TfmPathEditor
         AlignWithMargins = True
         Left = 3
@@ -186,75 +152,50 @@ object frmPathEditorMainForm: TfrmPathEditorMainForm
         Font.Style = []
         ParentFont = False
         TabOrder = 0
-        ExplicitLeft = 3
-        ExplicitTop = 3
-        ExplicitWidth = 594
-        ExplicitHeight = 358
         inherited lblPath: TLabel
           Width = 488
-          ExplicitWidth = 588
         end
         inherited lblLength: TLabel
           Left = 416
-          ExplicitLeft = 516
         end
         inherited lbxPaths: TListBox
           Width = 407
           Height = 145
-          ExplicitWidth = 507
-          ExplicitHeight = 275
         end
         inherited edtPath: TButtonedEdit
           Top = 173
           Width = 407
-          ExplicitTop = 303
-          ExplicitWidth = 507
         end
         inherited btnReplace: TBitBtn
           Left = 173
           Top = 200
-          ExplicitLeft = 273
-          ExplicitTop = 330
         end
         inherited btnAdd: TBitBtn
           Left = 254
           Top = 200
-          ExplicitLeft = 354
-          ExplicitTop = 330
         end
         inherited btnDelete: TBitBtn
           Left = 335
           Top = 200
-          ExplicitLeft = 435
-          ExplicitTop = 330
         end
         inherited btnBrowse: TBitBtn
           Left = 416
           Top = 171
-          ExplicitLeft = 516
-          ExplicitTop = 301
         end
         inherited btnUpdate: TBitBtn
           Top = 200
-          ExplicitTop = 330
         end
         inherited btnUp: TBitBtn
           Left = 416
           Top = 111
-          ExplicitLeft = 516
-          ExplicitTop = 241
         end
         inherited btnDown: TBitBtn
           Left = 416
           Top = 142
-          ExplicitLeft = 516
-          ExplicitTop = 272
         end
         inherited btnMove: TBitBtn
           Left = 92
           Top = 200
-          ExplicitLeft = 192
-          ExplicitTop = 330
         end
       end
     end
@@ -268,7 +209,5 @@ object frmPathEditorMainForm: TfrmPathEditorMainForm
     Anchors = [akLeft, akRight, akBottom]
     TabOrder = 1
     OnSelect = cbxUserProfilesSelect
-    ExplicitTop = 409
-    ExplicitWidth = 439
   end
 end

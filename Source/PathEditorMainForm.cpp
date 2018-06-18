@@ -124,6 +124,18 @@ void __fastcall TfrmPathEditorMainForm::SaveSettings() {
 
 **/
 void __fastcall TfrmPathEditorMainForm::FormDestroy(TObject *Sender) {
+  if (SystemPathEditor->HasBeenModified || UserPathEditor->HasBeenModified) {
+    unsigned long dwReturnValue = 0;
+    SendMessageTimeout(
+      HWND_BROADCAST,
+      WM_SETTINGCHANGE,
+      0,
+      (LPARAM) L"Environment",
+      SMTO_ABORTIFHUNG,
+      5000,
+      &dwReturnValue
+    );
+  }
   SaveSettings();
 }
 

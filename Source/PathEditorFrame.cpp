@@ -39,6 +39,7 @@ void __fastcall TfmPathEditor::InitialisePath(String strTitle, const String strP
   bool boolReadOnly, bool boolCanMove, TUpdatePathProc UpdatePathProc,
   TMovePathProc MovePathProc) {
   FModified = false;
+  FHasBeenModified = false;
   FReadOnly = boolReadOnly;
   FCanMove = boolCanMove;
   lblPath->Caption = strTitle;
@@ -77,8 +78,7 @@ void __fastcall TfmPathEditor::lbxPathsDblClick(TObject *Sender) {
 **/
 void __fastcall TfmPathEditor::lbxPathsClick(TObject *Sender) {
   btnUpdate->Enabled  = !FReadOnly && FModified && (FUpdatePathProc != NULL);
-  btnMove->Enabled    = !FReadOnly && FCanMove && (lbxPaths->ItemIndex > -1) &&
-    (FMovePathProc != NULL);
+  btnMove->Enabled    = !FReadOnly && FCanMove && (lbxPaths->ItemIndex > -1) && (FMovePathProc != NULL);
   btnAdd->Enabled     = !FReadOnly && (edtPath->Text != "");
   btnReplace->Enabled = !FReadOnly && (edtPath->Text != "") && (lbxPaths->ItemIndex > -1);
   btnDelete->Enabled  = !FReadOnly && (lbxPaths->ItemIndex > -1);
@@ -105,6 +105,7 @@ void __fastcall TfmPathEditor::btnReplaceClick(TObject *Sender) {
   if ((lbxPaths->ItemIndex > -1) && (edtPath->Text != "")) {
     lbxPaths->Items->Strings[lbxPaths->ItemIndex] = edtPath->Text;
     FModified = true;
+    FHasBeenModified = true;
     lbxPathsClick(Sender);
   }
 }
@@ -124,6 +125,7 @@ void __fastcall TfmPathEditor::btnAddClick(TObject *Sender) {
     if (lbxPaths->Items->IndexOf(edtPath->Text) == -1) {
       lbxPaths->Items->Add(edtPath->Text);
       FModified = true;
+      FHasBeenModified = true;
       lbxPathsClick(Sender);
     } else {
       MessageDlg("Path \"" + edtPath->Text + "\" already exists.", mtError,
@@ -148,6 +150,7 @@ void __fastcall TfmPathEditor::btnDeleteClick(TObject *Sender)
   if (iIndex > -1) {
     lbxPaths->Items->Delete(iIndex);
     FModified = true;
+    FHasBeenModified = true;
   }
   if (iIndex > lbxPaths->Items->Count - 1) {
     iIndex--;
@@ -171,6 +174,7 @@ void __fastcall TfmPathEditor::btnUpClick(TObject *Sender) {
   if (iIndex > 0) {
     lbxPaths->Items->Exchange(iIndex, iIndex - 1);
     FModified = true;
+    FHasBeenModified = true;
     lbxPathsClick(Sender);
   }
 }
@@ -190,6 +194,7 @@ void __fastcall TfmPathEditor::btnDownClick(TObject *Sender) {
   if (iIndex < lbxPaths->Items->Count - 1) {
     lbxPaths->Items->Exchange(iIndex, iIndex + 1);
     FModified = true;
+    FHasBeenModified = true;
     lbxPathsClick(Sender);
   }
 }
@@ -285,6 +290,7 @@ void __fastcall TfmPathEditor::btnMoveClick(TObject *Sender)
     FMovePathProc(Sender, lbxPaths->Items->Strings[lbxPaths->ItemIndex]);
     lbxPaths->Items->Delete(lbxPaths->ItemIndex);
     FModified = true;
+    FHasBeenModified = true;
     lbxPathsClick(NULL);
   }
 }
@@ -303,6 +309,7 @@ void __fastcall TfmPathEditor::AddPath(String strPath) {
   if (strPath.Length() > 0) {
     lbxPaths->Items->Add(strPath);
     FModified = true;
+    FHasBeenModified = true;
     lbxPathsClick(NULL);
   }
 }

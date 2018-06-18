@@ -29,7 +29,6 @@ object fmPathEditor: TfmPathEditor
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
-    ExplicitWidth = 615
   end
   object lblLength: TLabel
     Left = 440
@@ -39,7 +38,6 @@ object fmPathEditor: TfmPathEditor
     Anchors = [akTop, akRight]
     AutoSize = False
     Caption = 'lblLength'
-    ExplicitLeft = 385
   end
   object lbxPaths: TListBox
     AlignWithMargins = True
@@ -62,8 +60,6 @@ object fmPathEditor: TfmPathEditor
     Anchors = [akLeft, akRight, akBottom]
     TabOrder = 1
     OnChange = lbxPathsClick
-    ExplicitTop = 244
-    ExplicitWidth = 451
   end
   object btnReplace: TBitBtn
     Left = 197
@@ -74,8 +70,6 @@ object fmPathEditor: TfmPathEditor
     Caption = '&Replace'
     TabOrder = 2
     OnClick = btnReplaceClick
-    ExplicitLeft = 217
-    ExplicitTop = 271
   end
   object btnAdd: TBitBtn
     Left = 278
@@ -86,8 +80,6 @@ object fmPathEditor: TfmPathEditor
     Caption = '&Add'
     TabOrder = 3
     OnClick = btnAddClick
-    ExplicitLeft = 298
-    ExplicitTop = 271
   end
   object btnDelete: TBitBtn
     Left = 359
@@ -98,8 +90,6 @@ object fmPathEditor: TfmPathEditor
     Caption = '&Delete'
     TabOrder = 4
     OnClick = btnDeleteClick
-    ExplicitLeft = 379
-    ExplicitTop = 271
   end
   object btnBrowse: TBitBtn
     Left = 440
@@ -119,8 +109,6 @@ object fmPathEditor: TfmPathEditor
       7007777777770777070777777777700077777777777777777777}
     TabOrder = 5
     OnClick = btnBrowseClick
-    ExplicitLeft = 460
-    ExplicitTop = 242
   end
   object btnUpdate: TBitBtn
     Left = 3
@@ -131,7 +119,6 @@ object fmPathEditor: TfmPathEditor
     Caption = '&Update'
     TabOrder = 6
     OnClick = btnUpdateClick
-    ExplicitTop = 271
   end
   object btnUp: TBitBtn
     Left = 440
@@ -156,8 +143,6 @@ object fmPathEditor: TfmPathEditor
     NumGlyphs = 2
     TabOrder = 7
     OnClick = btnUpClick
-    ExplicitLeft = 460
-    ExplicitTop = 182
   end
   object btnDown: TBitBtn
     Left = 440
@@ -182,8 +167,6 @@ object fmPathEditor: TfmPathEditor
     NumGlyphs = 2
     TabOrder = 8
     OnClick = btnDownClick
-    ExplicitLeft = 460
-    ExplicitTop = 213
   end
   object btnMove: TBitBtn
     Left = 116
@@ -194,7 +177,5 @@ object fmPathEditor: TfmPathEditor
     Caption = '&Move'
     TabOrder = 9
     OnClick = btnMoveClick
-    ExplicitLeft = 136
-    ExplicitTop = 271
   end
 end
