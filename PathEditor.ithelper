@@ -1,0 +1,36 @@
+[Setup]
+WarnBefore=0
+WarnAfter=0
+IncBuild=1
+CopyVersionInfoFrom=
+ExcludedResExts=.dcr
+EnabledVersionInfo=1
+IncludeInProject=1
+CompileWithBRCC32=0
+MajorVer=1
+MinorVer=0
+ReleaseVer=0
+BuildVer=122
+ResourceName=PathEditorITHVerInfo
+
+[VersionInfo]
+CompanyName=Season's Fall Music
+FileDescription=Path Editor
+FileVersion=1.0.0.122
+InternalName=PathEditor
+LegalCopyright=Season's Fall Music
+LegalTrademarks=Season's Fall Music
+OriginalFilename=PathEditor
+ProductName=PathEditor
+ProductVersion=1.0
+Comments=An applcation to edit system and user paths
+
+[Zipping]
+Enabled=1
+ZipFile=D:\HoylD\Web Page\Zips\PathEditor-1.0.zip
+BasePath=D:\HoylD\RAD Studio\
+ExclusionFiles=
+
+[Additional Zip Files]
+Item0=D:\HoylD\RAD Studio\Applications\Path Editor\PathEditor.exe
+
