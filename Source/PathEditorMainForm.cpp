@@ -4,10 +4,12 @@
 #include <IniFiles.hpp>
 #include <Registry.hpp>
 #include <DGHLibrary.hpp>
+#include <memory>
 #pragma hdrstop
 
 #include "PathEditorMainForm.h"
 #include "PathEditorFrame.h"
+#include "PathEditorBroadcastForm.h"
 
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -125,16 +127,23 @@ void __fastcall TfrmPathEditorMainForm::SaveSettings() {
 **/
 void __fastcall TfrmPathEditorMainForm::FormDestroy(TObject *Sender) {
   if (SystemPathEditor->HasBeenModified || UserPathEditor->HasBeenModified) {
-    unsigned long dwReturnValue = 0;
-    SendMessageTimeout(
-      HWND_BROADCAST,
-      WM_SETTINGCHANGE,
-      0,
-      (LPARAM) L"Environment",
-      SMTO_ABORTIFHUNG,
-      5000,
-      &dwReturnValue
-    );
+    std::unique_ptr<TfrmBroadcastChanges> BroadcastForm( new TfrmBroadcastChanges(this) );
+    BroadcastForm->Show();
+    try {
+      Application->ProcessMessages(); // Ensure form is painted
+      unsigned long dwReturnValue = 0;
+      SendMessageTimeout(
+        HWND_BROADCAST,
+        WM_SETTINGCHANGE,
+        0,
+        (LPARAM) L"Environment",
+        SMTO_ABORTIFHUNG,
+        5000,
+        &dwReturnValue
+      );
+    } __finally {
+      BroadcastForm->Hide();
+    }
   }
   SaveSettings();
 }
