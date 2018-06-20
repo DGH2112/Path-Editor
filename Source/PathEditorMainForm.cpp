@@ -3,7 +3,6 @@
 #include <windows.hpp>
 #include <IniFiles.hpp>
 #include <Registry.hpp>
-#include <DGHLibrary.hpp>
 #include <memory>
 #pragma hdrstop
 
@@ -64,7 +63,7 @@ void __fastcall TfrmPathEditorMainForm::FormCreate(TObject *Sender) {
   // Update caption with app name and version info
   int iMajor, iMinor, iBugFix, iBuild;
   String strBugFix = " abcdefghijklmnopqrstuvwxyz";
-  GetBuildNumber(ParamStr(0), iMajor, iMinor, iBugFix, iBuild);
+  BuildInfo(ParamStr(0), iMajor, iMinor, iBugFix, iBuild);
   Caption = Format("Path Editor %d.%d%s (Build %d.%d.%d.%d)", ARRAYOFCONST((
     iMajor, iMinor, strBugFix[iBugFix + 1], iMajor, iMinor, iBugFix, iBuild)));
   PopulateUserProfiles();
@@ -470,3 +469,41 @@ String __fastcall TfrmPathEditorMainForm::GetUserProfileName() {
   }
   return strUserProfile;
 }
+
+/**
+
+  This method updates the application caption to include the applications version number
+  and build information.
+
+  @precon  None.
+  @postcon The applications caption is updated with version and build information.
+
+**/
+void __fastcall TfrmPathEditorMainForm::BuildInfo(const String strFileName, int &iMajor,
+  int &iMinor, int &iBugFix, int &iBuild) {
+  DWORD iVerHandle = NULL;
+  DWORD iVerInfoSize = GetFileVersionInfoSize(strFileName.c_str(), &iVerHandle);
+  if (iVerInfoSize) {
+    LPSTR VerInfo = new char [iVerInfoSize];
+    try {
+      if (GetFileVersionInfo(strFileName.c_str(), iVerHandle, iVerInfoSize, VerInfo)) {
+        unsigned int iVerValueSize = 0;
+        LPBYTE lpBuffer = NULL;
+        if (VerQueryValue(VerInfo, TEXT("\\"), (VOID FAR* FAR*)&lpBuffer, &iVerValueSize)) {
+          if (iVerValueSize) {
+            VS_FIXEDFILEINFO *VerValue = (VS_FIXEDFILEINFO *)lpBuffer;
+            iMajor = VerValue->dwFileVersionMS >> 16;
+            iMinor = VerValue->dwFileVersionMS & 0xFFFF;
+            iBugFix = VerValue->dwFileVersionLS >> 16;
+            iBuild = VerValue->dwFileVersionLS & 0xFFFF;
+          }
+        }
+      }
+    } __finally {
+      delete[] VerInfo;
+    }
+  } else
+    ShowMessage("The executable """ + strFileName +
+      """ does not contain any version information.");
+}
+

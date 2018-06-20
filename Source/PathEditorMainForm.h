@@ -42,6 +42,8 @@ private: // User declarations
   void   __fastcall MoveUserPath(TObject *Sender, String strUserPath);
   void   __fastcall PopulateUserProfiles();
   String __fastcall GetUserProfileName();
+  void __fastcall TfrmPathEditorMainForm::BuildInfo(const String strFileName, int &iMajor,
+    int &iMinor, int &iBugFix, int &iBuild);
 public:  // User declarations
   __fastcall TfrmPathEditorMainForm(TComponent* Owner);
 };

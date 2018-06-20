@@ -57,8 +57,8 @@
         <ProjectType>CppVCLApplication</ProjectType>
         <Multithreaded>true</Multithreaded>
         <SanitizedProjectName>PathEditor</SanitizedProjectName>
-        <ILINK_LibraryPath>..\..\Library\;Source\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
-        <IncludePath>..\..\Library\;Source\;$(IncludePath)</IncludePath>
+        <ILINK_LibraryPath>Source\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <IncludePath>Source\;$(IncludePath)</IncludePath>
         <DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
         <DynamicRTL>true</DynamicRTL>
         <UsePackages>true</UsePackages>
@@ -156,13 +156,6 @@
             <DependentOn>Source\PathEditorMainForm.h</DependentOn>
             <BuildOrder>2</BuildOrder>
         </CppCompile>
-        <None Include="..\..\Library\CompilerDefinitions.inc"/>
-        <None Include="..\..\Library\dghlibrary.hpp">
-            <BuildOrder>5</BuildOrder>
-        </None>
-        <DelphiCompile Include="..\..\Library\dghlibrary.pas">
-            <BuildOrder>6</BuildOrder>
-        </DelphiCompile>
         <FormResources Include="Source\PathEditorMainForm.dfm"/>
         <FormResources Include="Source\PathEditorFrame.dfm"/>
         <FormResources Include="Source\PathEditorBroadcastForm.dfm"/>
@@ -258,12 +251,6 @@
                 <DeployFile LocalName=".\PathEditor.tds" Configuration="Debug" Class="DebugSymbols">
                     <Platform Name="Win32">
                         <RemoteName>PathEditor.tds</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="..\..\Library\CompilerDefinitions.inc" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

@@ -10,7 +10,7 @@ CompileWithBRCC32=0
 MajorVer=1
 MinorVer=0
 ReleaseVer=1
-BuildVer=129
+BuildVer=133
 ResourceName=PathEditorITHVerInfo
 
 [Zipping]
@@ -22,7 +22,7 @@ ExclusionFiles=
 [VersionInfo]
 CompanyName=Season's Fall Music
 FileDescription=Path Editor
-FileVersion=1.0.1.129
+FileVersion=1.0.1.133
 InternalName=PathEditor
 LegalCopyright=Season's Fall Music
 LegalTrademarks=Season's Fall Music
