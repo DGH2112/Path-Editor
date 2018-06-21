@@ -58,7 +58,7 @@ object fmPathEditor: TfmPathEditor
     Width = 431
     Height = 24
     Anchors = [akLeft, akRight, akBottom]
-    TabOrder = 1
+    TabOrder = 3
     OnChange = lbxPathsClick
   end
   object btnReplace: TBitBtn
@@ -68,7 +68,7 @@ object fmPathEditor: TfmPathEditor
     Height = 25
     Anchors = [akRight, akBottom]
     Caption = '&Replace'
-    TabOrder = 2
+    TabOrder = 7
     OnClick = btnReplaceClick
   end
   object btnAdd: TBitBtn
@@ -78,7 +78,7 @@ object fmPathEditor: TfmPathEditor
     Height = 25
     Anchors = [akRight, akBottom]
     Caption = '&Add'
-    TabOrder = 3
+    TabOrder = 8
     OnClick = btnAddClick
   end
   object btnDelete: TBitBtn
@@ -88,7 +88,7 @@ object fmPathEditor: TfmPathEditor
     Height = 25
     Anchors = [akRight, akBottom]
     Caption = '&Delete'
-    TabOrder = 4
+    TabOrder = 9
     OnClick = btnDeleteClick
   end
   object btnBrowse: TBitBtn
@@ -107,7 +107,7 @@ object fmPathEditor: TfmPathEditor
       07770FB03333333330770BFB0333333333070FBFB000000000000BFBFBFBFB07
       77770FBFBFBFBF0777770BFB0000000777777000777777770007777777777777
       7007777777770777070777777777700077777777777777777777}
-    TabOrder = 5
+    TabOrder = 4
     OnClick = btnBrowseClick
   end
   object btnUpdate: TBitBtn
@@ -117,7 +117,7 @@ object fmPathEditor: TfmPathEditor
     Height = 25
     Anchors = [akLeft, akBottom]
     Caption = '&Update'
-    TabOrder = 6
+    TabOrder = 5
     OnClick = btnUpdateClick
   end
   object btnUp: TBitBtn
@@ -141,7 +141,7 @@ object fmPathEditor: TfmPathEditor
       33333333337F7F33333333333309033333333333337373333333333333303333
       333333333337F333333333333330333333333333333733333333}
     NumGlyphs = 2
-    TabOrder = 7
+    TabOrder = 1
     OnClick = btnUpClick
   end
   object btnDown: TBitBtn
@@ -165,7 +165,7 @@ object fmPathEditor: TfmPathEditor
       33333333337F7F33333333333309033333333333337F7F333333333333090333
       33333333337F7F33333333333300033333333333337773333333}
     NumGlyphs = 2
-    TabOrder = 8
+    TabOrder = 2
     OnClick = btnDownClick
   end
   object btnMove: TBitBtn
@@ -175,7 +175,7 @@ object fmPathEditor: TfmPathEditor
     Height = 25
     Anchors = [akRight, akBottom]
     Caption = '&Move'
-    TabOrder = 9
+    TabOrder = 6
     OnClick = btnMoveClick
   end
 end
