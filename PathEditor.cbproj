@@ -60,7 +60,6 @@
         <ILINK_LibraryPath>Source\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
         <IncludePath>Source\;$(IncludePath)</IncludePath>
         <DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
-        <DynamicRTL>true</DynamicRTL>
         <UsePackages>true</UsePackages>
         <IntermediateOutputDir>.\$(Platform)\$(Config)</IntermediateOutputDir>
         <FinalOutputDir>.\$(Platform)\$(Config)</FinalOutputDir>
@@ -156,9 +155,9 @@
             <DependentOn>Source\PathEditorMainForm.h</DependentOn>
             <BuildOrder>2</BuildOrder>
         </CppCompile>
-        <FormResources Include="Source\PathEditorMainForm.dfm"/>
-        <FormResources Include="Source\PathEditorFrame.dfm"/>
         <FormResources Include="Source\PathEditorBroadcastForm.dfm"/>
+        <FormResources Include="Source\PathEditorFrame.dfm"/>
+        <FormResources Include="Source\PathEditorMainForm.dfm"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

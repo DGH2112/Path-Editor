@@ -125,25 +125,6 @@ void __fastcall TfrmPathEditorMainForm::SaveSettings() {
 
 **/
 void __fastcall TfrmPathEditorMainForm::FormDestroy(TObject *Sender) {
-  if (SystemPathEditor->HasBeenModified || UserPathEditor->HasBeenModified) {
-    std::unique_ptr<TfrmBroadcastChanges> BroadcastForm( new TfrmBroadcastChanges(this) );
-    BroadcastForm->Show();
-    try {
-      Application->ProcessMessages(); // Ensure form is painted
-      unsigned long dwReturnValue = 0;
-      SendMessageTimeout(
-        HWND_BROADCAST,
-        WM_SETTINGCHANGE,
-        0,
-        (LPARAM) L"Environment",
-        SMTO_ABORTIFHUNG,
-        5000,
-        &dwReturnValue
-      );
-    } __finally {
-      BroadcastForm->Hide();
-    }
-  }
   SaveSettings();
 }
 
@@ -367,11 +348,36 @@ void __fastcall TfrmPathEditorMainForm::MoveUserPath(TObject *Sender,
 
 **/
 void __fastcall TfrmPathEditorMainForm::FormCloseQuery(TObject *Sender, bool &CanClose) {
-  if (UserPathEditor->Modified || SystemPathEditor->Modified) {
+  if (
+    (UserPathEditor->HasBeenModified && !UserPathEditor->HasBeenSaved) ||
+    (SystemPathEditor->HasBeenModified && !SystemPathEditor->HasBeenSaved)) {
     CanClose = false;
-    if (MessageDlg("Paths have been modified. Are you sure you want to close?",
-      mtConfirmation, TMsgDlgButtons() << mbYes << mbNo << mbCancel, 0) == mrYes) {
-      CanClose = true;
+    switch (MessageDlg("Paths have been modified. Are you sure you want to close?",
+      mtConfirmation, TMsgDlgButtons() << mbYes << mbNo << mbCancel, 0)) {
+      case mrYes:
+        CanClose = true;
+        return;
+      case mrNo, mrCancel:
+        return;
+    }
+  }
+  if (CanClose && (SystemPathEditor->HasBeenSaved || UserPathEditor->HasBeenSaved)) {
+    std::unique_ptr<TfrmBroadcastChanges> BroadcastForm( new TfrmBroadcastChanges(this) );
+    BroadcastForm->Show();
+    try {
+      Application->ProcessMessages(); // Ensure form is painted
+      unsigned long dwReturnValue = 0;
+      SendMessageTimeout(
+        HWND_BROADCAST,
+        WM_SETTINGCHANGE,
+        0,
+        (LPARAM) L"Environment",
+        SMTO_ABORTIFHUNG,
+        5000,
+        &dwReturnValue
+      );
+    } __finally {
+      BroadcastForm->Hide();
     }
   }
 }
@@ -434,7 +440,9 @@ void __fastcall TfrmPathEditorMainForm::PopulateUserProfiles() {
 
 **/
 void __fastcall TfrmPathEditorMainForm::cbxUserProfilesSelect(TObject *Sender) {
-  if (UserPathEditor->Modified || SystemPathEditor->Modified) {
+  if (
+    (UserPathEditor->HasBeenModified && !UserPathEditor->HasBeenSaved) ||
+    (SystemPathEditor->HasBeenModified && !SystemPathEditor->HasBeenSaved)) {
     if (MessageDlg("Some of the paths have been modified. Are you sure you want to "
       "change user?", mtConfirmation, TMsgDlgButtons() << mbYes << mbNo << mbCancel,
       0) != mrYes) {

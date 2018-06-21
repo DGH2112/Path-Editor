@@ -46,10 +46,11 @@ __published:	// IDE-managed Components
 private: // User declarations
   TUpdatePathProc FUpdatePathProc;
   TMovePathProc   FMovePathProc;
-  bool            FModified;
   bool            FHasBeenModified;
+  bool            FHasBeenSaved;
   bool            FReadOnly;
   bool            FCanMove;
+protected:
 public:  // User declarations
        __fastcall TfmPathEditor(TComponent* Owner);
   void __fastcall InitialisePath(const String strTitle, const String strPath,
@@ -74,8 +75,8 @@ public:  // User declarations
     @return  TUpdatePathProc
   **/
   __property TMovePathProc   OnMove   = {read = FMovePathProc  , write = FMovePathProc};
-  __property bool Modified = {read = FModified};
   __property bool HasBeenModified = {read = FHasBeenModified};
+  __property bool HasBeenSaved = {read = FHasBeenSaved};
 };
 
 //: @debug extern PACKAGE TfmPathEditor *fmPathEditor;
