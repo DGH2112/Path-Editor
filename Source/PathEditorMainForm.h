@@ -28,8 +28,9 @@ __published:	// IDE-managed Components
   void __fastcall FormCloseQuery(TObject *Sender, bool &CanClose);
   void __fastcall cbxUserProfilesSelect(TObject *Sender);
 private: // User declarations
-  bool  FSystemReadOnly;
-  bool  FUserReadOnly;
+  String FINIFileName;
+  bool   FSystemReadOnly;
+  bool   FUserReadOnly;
   void   __fastcall LoadSettings();
   void   __fastcall SaveSettings();
   String __fastcall GetSystemPath(bool &boolReadOnly);
@@ -42,7 +43,10 @@ private: // User declarations
   void   __fastcall MoveUserPath(TObject *Sender, String strUserPath);
   void   __fastcall PopulateUserProfiles();
   String __fastcall GetUserProfileName();
-  void __fastcall TfrmPathEditorMainForm::BuildInfo(const String strFileName, int &iMajor,
+  void   __fastcall BuildINIFileName();
+  String __fastcall ComputerName();
+  String __fastcall UserName();
+  void   __fastcall TfrmPathEditorMainForm::BuildInfo(const String strFileName, int &iMajor,
     int &iMinor, int &iBugFix, int &iBuild);
 public:  // User declarations
   __fastcall TfrmPathEditorMainForm(TComponent* Owner);

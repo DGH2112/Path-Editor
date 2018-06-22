@@ -54,6 +54,7 @@ void __fastcall TfrmPathEditorMainForm::btnCloseClick(TObject *Sender) {
 
 **/
 void __fastcall TfrmPathEditorMainForm::FormCreate(TObject *Sender) {
+  BuildINIFileName();
   // Initialise Frames
   FSystemReadOnly = true;
   FUserReadOnly = true;
@@ -78,8 +79,7 @@ void __fastcall TfrmPathEditorMainForm::FormCreate(TObject *Sender) {
 
 **/
 void __fastcall TfrmPathEditorMainForm::LoadSettings() {
-  String strINIFileName = ChangeFileExt(ParamStr(0), ".ini");
-  TMemIniFile *iniFile = new TMemIniFile(strINIFileName);
+  TMemIniFile *iniFile = new TMemIniFile(FINIFileName);
   try {
     this->Top = iniFile->ReadInteger("Setup", "Top", 100);
     this->Left = iniFile->ReadInteger("Setup", "Left", 100);
@@ -100,8 +100,7 @@ void __fastcall TfrmPathEditorMainForm::LoadSettings() {
 
 **/
 void __fastcall TfrmPathEditorMainForm::SaveSettings() {
-  String strINIFileName = ChangeFileExt(ParamStr(0), ".ini");
-  TMemIniFile *iniFile = new TMemIniFile(strINIFileName);
+  TMemIniFile *iniFile = new TMemIniFile(FINIFileName);
   try {
     iniFile->WriteInteger("Setup", "Top", this->Top);
     iniFile->WriteInteger("Setup", "Left", this->Left);
@@ -514,4 +513,72 @@ void __fastcall TfrmPathEditorMainForm::BuildInfo(const String strFileName, int 
     ShowMessage("The executable """ + strFileName +
       """ does not contain any version information.");
 }
+
+/**
+
+  This method build an INI filename based in the computer name username and the users profile location.
+
+  @precon  None.
+  @postcon FINIFileName contaisn a valid INI filename in the users profile.
+
+  @return  a String
+
+**/
+void __fastcall TfrmPathEditorMainForm::BuildINIFileName() {
+  const String strINIPattern = L"%s Settings for %s on %s.INI";
+  const String strSeasonsFall = L"\\Season's Fall\\";
+  String strBuffer = "";
+  strBuffer.SetLength(MAX_PATH);
+  int iSize = GetModuleFileName(HInstance, strBuffer.c_str(), MAX_PATH);
+  strBuffer.SetLength(iSize);
+  FINIFileName = ChangeFileExt(strBuffer, "");
+  FINIFileName = Format(strINIPattern, ARRAYOFCONST((FINIFileName, UserName(), ComputerName())));
+  strBuffer.SetLength(MAX_PATH);
+  if (SHGetFolderPath(0, CSIDL_APPDATA | CSIDL_FLAG_CREATE, 0, 0, strBuffer.c_str()) == S_OK) {
+    iSize = strBuffer.Pos('\0');
+    strBuffer.SetLength(--iSize);
+    strBuffer = strBuffer + strSeasonsFall;
+    if (!DirectoryExists(strBuffer))
+      ForceDirectories(strBuffer);
+    FINIFileName = strBuffer + ExtractFileName(FINIFileName);
+  }
+}
+
+/**
+
+  This method returns the computer name.
+
+  @precon  None.
+  @postcon The computer name is returned.
+
+  @return  a String
+
+**/
+String __fastcall TfrmPathEditorMainForm::ComputerName() {
+  unsigned long iSize = MAX_PATH;
+  String strBuffer = "";
+  strBuffer.SetLength(iSize);
+  GetComputerName(strBuffer.c_str(), &iSize);
+  strBuffer.SetLength(iSize);
+  return strBuffer;
+};
+
+/**
+
+  This method returns the user name.
+
+  @precon  None.
+  @postcon The user name is returned.
+
+  @return  a String
+
+**/
+String __fastcall TfrmPathEditorMainForm::UserName() {
+  unsigned long iSize = MAX_PATH;
+  String strBuffer = "";
+  strBuffer.SetLength(iSize);
+  GetUserName(strBuffer.c_str(), &iSize);
+  strBuffer.SetLength(--iSize);
+  return strBuffer;
+};
 

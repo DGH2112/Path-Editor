@@ -275,6 +275,7 @@ object frmPathEditorMainForm: TfrmPathEditorMainForm
     Width = 75
     Height = 25
     Anchors = [akRight, akBottom]
+    Cancel = True
     Caption = '&Close'
     Glyph.Data = {
       DE010000424DDE01000000000000760000002800000024000000120000000100
@@ -321,50 +322,75 @@ object frmPathEditorMainForm: TfrmPathEditorMainForm
         Font.Style = []
         ParentFont = False
         TabOrder = 0
+        ExplicitLeft = 3
+        ExplicitTop = 3
+        ExplicitWidth = 494
+        ExplicitHeight = 228
         inherited lblPath: TLabel
           Width = 488
+          ExplicitWidth = 488
         end
         inherited lblLength: TLabel
           Left = 416
+          ExplicitLeft = 416
         end
         inherited lbxPaths: TListBox
           Width = 407
           Height = 145
+          ExplicitWidth = 407
+          ExplicitHeight = 145
         end
         inherited edtPath: TButtonedEdit
           Top = 173
           Width = 407
+          ExplicitTop = 173
+          ExplicitWidth = 407
         end
         inherited btnReplace: TBitBtn
           Left = 173
           Top = 200
+          ExplicitLeft = 173
+          ExplicitTop = 200
         end
         inherited btnAdd: TBitBtn
           Left = 254
           Top = 200
+          ExplicitLeft = 254
+          ExplicitTop = 200
         end
         inherited btnDelete: TBitBtn
           Left = 335
           Top = 200
+          ExplicitLeft = 335
+          ExplicitTop = 200
         end
         inherited btnBrowse: TBitBtn
           Left = 416
           Top = 171
+          ExplicitLeft = 416
+          ExplicitTop = 171
         end
         inherited btnUpdate: TBitBtn
           Top = 200
+          ExplicitTop = 200
         end
         inherited btnUp: TBitBtn
           Left = 416
           Top = 111
+          ExplicitLeft = 416
+          ExplicitTop = 111
         end
         inherited btnDown: TBitBtn
           Left = 416
           Top = 142
+          ExplicitLeft = 416
+          ExplicitTop = 142
         end
         inherited btnMove: TBitBtn
           Left = 92
           Top = 200
+          ExplicitLeft = 92
+          ExplicitTop = 200
         end
       end
     end
@@ -385,50 +411,75 @@ object frmPathEditorMainForm: TfrmPathEditorMainForm
         Font.Style = []
         ParentFont = False
         TabOrder = 0
+        ExplicitLeft = 3
+        ExplicitTop = 3
+        ExplicitWidth = 494
+        ExplicitHeight = 228
         inherited lblPath: TLabel
           Width = 488
+          ExplicitWidth = 488
         end
         inherited lblLength: TLabel
           Left = 416
+          ExplicitLeft = 416
         end
         inherited lbxPaths: TListBox
           Width = 407
           Height = 145
+          ExplicitWidth = 407
+          ExplicitHeight = 145
         end
         inherited edtPath: TButtonedEdit
           Top = 173
           Width = 407
+          ExplicitTop = 173
+          ExplicitWidth = 407
         end
         inherited btnReplace: TBitBtn
           Left = 173
           Top = 200
+          ExplicitLeft = 173
+          ExplicitTop = 200
         end
         inherited btnAdd: TBitBtn
           Left = 254
           Top = 200
+          ExplicitLeft = 254
+          ExplicitTop = 200
         end
         inherited btnDelete: TBitBtn
           Left = 335
           Top = 200
+          ExplicitLeft = 335
+          ExplicitTop = 200
         end
         inherited btnBrowse: TBitBtn
           Left = 416
           Top = 171
+          ExplicitLeft = 416
+          ExplicitTop = 171
         end
         inherited btnUpdate: TBitBtn
           Top = 200
+          ExplicitTop = 200
         end
         inherited btnUp: TBitBtn
           Left = 416
           Top = 111
+          ExplicitLeft = 416
+          ExplicitTop = 111
         end
         inherited btnDown: TBitBtn
           Left = 416
           Top = 142
+          ExplicitLeft = 416
+          ExplicitTop = 142
         end
         inherited btnMove: TBitBtn
           Left = 92
           Top = 200
+          ExplicitLeft = 92
+          ExplicitTop = 200
         end
       end
     end
