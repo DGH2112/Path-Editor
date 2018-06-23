@@ -6,9 +6,9 @@
 //---------------------------------------------------------------------------
 #include <Vcl.Styles.hpp>
 #include <Vcl.Themes.hpp>
-USEFORM("Source\PathEditorMainForm.cpp", frmPathEditorMainForm);
-USEFORM("Source\PathEditorFrame.cpp", fmPathEditor); /* TFrame: File Type */
 USEFORM("Source\PathEditorBroadcastForm.cpp", frmBroadcastChanges);
+USEFORM("Source\PathEditorFrame.cpp", fmPathEditor); /* TFrame: File Type */
+USEFORM("Source\PathEditorMainForm.cpp", frmPathEditorMainForm);
 //---------------------------------------------------------------------------
 int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 {

@@ -6,7 +6,7 @@
         <AppType>Application</AppType>
         <MainSource>PathEditor.cpp</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Debug</Config>
+        <Config Condition="'$(Config)'==''">Release</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>1</TargetedPlatforms>
     </PropertyGroup>
@@ -125,8 +125,10 @@
         <VerInfo_Locale>1033</VerInfo_Locale>
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <AppEnableHighDPI>true</AppEnableHighDPI>
+        <LinkPackageImports>rtl.bpi;vcl.bpi;vclx.bpi</LinkPackageImports>
     </PropertyGroup>
     <ItemGroup>
+        <None Include="License.md"/>
         <CppCompile Include="PathEditor.cpp">
             <BuildOrder>0</BuildOrder>
         </CppCompile>
@@ -138,6 +140,7 @@
             <Form>PathEditorITHVerInfo.res</Form>
             <BuildOrder>4</BuildOrder>
         </ResourceCompile>
+        <None Include="Readme.md"/>
         <CppCompile Include="Source\PathEditorBroadcastForm.cpp">
             <Form>frmBroadcastChanges</Form>
             <FormType>dfm</FormType>
@@ -232,6 +235,12 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
+                <DeployFile LocalName="License.md" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName=".\PathEditor.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>PathEditor.exe</RemoteName>
@@ -252,6 +261,12 @@
                 <DeployFile LocalName=".\PathEditor.tds" Configuration="Debug" Class="DebugSymbols">
                     <Platform Name="Win32">
                         <RemoteName>PathEditor.tds</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Readme.md" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
