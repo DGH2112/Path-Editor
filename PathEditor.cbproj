@@ -60,7 +60,6 @@
         <ILINK_LibraryPath>Source\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
         <IncludePath>Source\;$(IncludePath)</IncludePath>
         <DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
-        <UsePackages>true</UsePackages>
         <IntermediateOutputDir>.\$(Platform)\$(Config)</IntermediateOutputDir>
         <FinalOutputDir>.\$(Platform)\$(Config)</FinalOutputDir>
         <BCC_wpar>false</BCC_wpar>
@@ -108,7 +107,7 @@
         <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\debug\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-        <FinalOutputDir>.\</FinalOutputDir>
+        <FinalOutputDir>.\$(Platform)\$(Config) </FinalOutputDir>
         <DynamicRTL>false</DynamicRTL>
         <LinkPackageStatics>rtl.lib;vcl.lib;vclx.lib</LinkPackageStatics>
         <UsePackages>false</UsePackages>
@@ -116,6 +115,7 @@
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <AppEnableHighDPI>true</AppEnableHighDPI>
         <BT_BuildType>Debug</BT_BuildType>
+        <Icon_MainIcon>PathEditor.ico</Icon_MainIcon>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <Defines>NDEBUG;$(Defines)</Defines>
@@ -125,7 +125,9 @@
         <VerInfo_Locale>1033</VerInfo_Locale>
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <AppEnableHighDPI>true</AppEnableHighDPI>
-        <LinkPackageImports>rtl.bpi;vcl.bpi;vclx.bpi</LinkPackageImports>
+        <BT_BuildType>Debug</BT_BuildType>
+        <Icon_MainIcon>PathEditor.ico</Icon_MainIcon>
+        <LinkPackageStatics>rtl.lib;vcl.lib;vclx.lib</LinkPackageStatics>
     </PropertyGroup>
     <ItemGroup>
         <None Include="License.md"/>

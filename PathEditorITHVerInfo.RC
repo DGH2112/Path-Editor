@@ -1,8 +1,8 @@
 LANGUAGE LANG_ENGLISH,SUBLANG_ENGLISH_US
 
 1 VERSIONINFO LOADONCALL MOVEABLE DISCARDABLE IMPURE
-FILEVERSION 1, 0, 1, 150
-PRODUCTVERSION 1, 0, 1, 150
+FILEVERSION 1, 0, 2, 152
+PRODUCTVERSION 1, 0, 2, 152
 FILEFLAGSMASK VS_FFI_FILEFLAGSMASK
 FILEOS VOS__WINDOWS32
 FILETYPE VFT_APP
@@ -13,13 +13,13 @@ FILETYPE VFT_APP
     {
       VALUE "CompanyName", "Season's Fall Music\000"
       VALUE "FileDescription", "Path Editor\000"
-      VALUE "FileVersion", "1.0.1.150\000"
+      VALUE "FileVersion", "1.0.2.152\000"
       VALUE "InternalName", "PathEditor\000"
       VALUE "LegalCopyright", "Season's Fall Music\000"
       VALUE "LegalTrademarks", "Season's Fall Music\000"
       VALUE "OriginalFilename", "PathEditor\000"
       VALUE "ProductName", "PathEditor\000"
-      VALUE "ProductVersion", "1.1\000"
+      VALUE "ProductVersion", "1.0b\000"
       VALUE "Comments", "An applcation to edit system and user paths\000"
     }
   }
