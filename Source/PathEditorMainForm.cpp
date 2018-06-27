@@ -229,7 +229,7 @@ void __fastcall TfrmPathEditorMainForm::SetSystemPath(String strPath) {
     reg->RootKey = HKEY_LOCAL_MACHINE;
     if (reg->KeyExists(strSysPath)) {
       if (reg->OpenKey(strSysPath, false)) {
-        reg->WriteString("Path", strPath);
+        reg->WriteExpandString("Path", strPath);
         reg->CloseKey();
       } else
         MessageDlg("Cannot open the system path for writing!", mtError,
@@ -259,7 +259,7 @@ void __fastcall TfrmPathEditorMainForm::SetUserPath(String strUserProfile,
   try {
     reg->RootKey = HKEY_USERS;
     if (reg->OpenKey(strUserProfile + "\\" + strUserPath, false)) {
-      reg->WriteString("Path", strPath);
+      reg->WriteExpandString("Path", strPath);
       reg->CloseKey();
     } else
       MessageDlg("Cannot open the user path for writing!", mtError,
