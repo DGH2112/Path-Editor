@@ -79,16 +79,11 @@ void __fastcall TfrmPathEditorMainForm::FormCreate(TObject *Sender) {
 
 **/
 void __fastcall TfrmPathEditorMainForm::LoadSettings() {
-  TMemIniFile *iniFile = new TMemIniFile(FINIFileName);
-  try {
-    this->Top = iniFile->ReadInteger("Setup", "Top", 100);
-    this->Left = iniFile->ReadInteger("Setup", "Left", 100);
-    this->Width = iniFile->ReadInteger("Setup", "Width", this->Width);
-    this->Height = iniFile->ReadInteger("Setup", "Height", this->Height);
-  }
-  __finally {
-    delete iniFile;
-  };
+  std::unique_ptr<TMemIniFile> iniFile ( new TMemIniFile(FINIFileName) );
+  this->Top = iniFile->ReadInteger("Setup", "Top", 100);
+  this->Left = iniFile->ReadInteger("Setup", "Left", 100);
+  this->Width = iniFile->ReadInteger("Setup", "Width", this->Width);
+  this->Height = iniFile->ReadInteger("Setup", "Height", this->Height);
 }
 
 /**
@@ -100,17 +95,12 @@ void __fastcall TfrmPathEditorMainForm::LoadSettings() {
 
 **/
 void __fastcall TfrmPathEditorMainForm::SaveSettings() {
-  TMemIniFile *iniFile = new TMemIniFile(FINIFileName);
-  try {
-    iniFile->WriteInteger("Setup", "Top", this->Top);
-    iniFile->WriteInteger("Setup", "Left", this->Left);
-    iniFile->WriteInteger("Setup", "Width", this->Width);
-    iniFile->WriteInteger("Setup", "Height", this->Height);
-    iniFile->UpdateFile();
-  }
-  __finally {
-    delete iniFile;
-  };
+  std::unique_ptr<TMemIniFile> iniFile ( new TMemIniFile(FINIFileName) );
+  iniFile->WriteInteger("Setup", "Top", this->Top);
+  iniFile->WriteInteger("Setup", "Left", this->Left);
+  iniFile->WriteInteger("Setup", "Width", this->Width);
+  iniFile->WriteInteger("Setup", "Height", this->Height);
+  iniFile->UpdateFile();
 }
 
 /**
@@ -143,28 +133,20 @@ String __fastcall TfrmPathEditorMainForm::GetSystemPath(bool &boolReadOnly) {
   String strPath = "";
   // Find out if the key is read only.
   boolReadOnly = true;
-  TRegistry *reg = new TRegistry(KEY_WRITE);
-  try {
-    reg->RootKey = HKEY_LOCAL_MACHINE;
-    if (reg->OpenKey(strSysPath, false)) {
-      reg->CloseKey();
-      boolReadOnly = false;
-    }
-  } __finally {
-    delete reg;
+  std::unique_ptr<TRegistry> reg ( new TRegistry(KEY_WRITE) );
+  reg->RootKey = HKEY_LOCAL_MACHINE;
+  if (reg->OpenKey(strSysPath, false)) {
+    reg->CloseKey();
+    boolReadOnly = false;
   }
   // Get the path value
-  reg = new TRegistry(KEY_READ);
-  try {
-    reg->RootKey = HKEY_LOCAL_MACHINE;
-    if (reg->KeyExists(strSysPath)) {
-      if (reg->OpenKey(strSysPath, false)) {
-        strPath = reg->ReadString("Path");
-        reg->CloseKey();
-      }
+  reg.reset( new TRegistry(KEY_READ) );
+  reg->RootKey = HKEY_LOCAL_MACHINE;
+  if (reg->KeyExists(strSysPath)) {
+    if (reg->OpenKey(strSysPath, false)) {
+      strPath = reg->ReadString("Path");
+      reg->CloseKey();
     }
-  } __finally {
-    delete reg;
   }
   return strPath;
 }
@@ -187,26 +169,18 @@ String __fastcall TfrmPathEditorMainForm::GetUserPath(String strUserProfile,
   String strPath = "";
   // Find out if the key is read only
   boolReadOnly = true;
-  TRegistry *reg = new TRegistry(KEY_WRITE);
-  try {
-    reg->RootKey = HKEY_USERS;
-    if (reg->OpenKey(strUserProfile + "\\" + strUserPath, false)) {
-      reg->CloseKey();
-      boolReadOnly = false;
-    }
-  } __finally {
-    delete reg;
+  std::unique_ptr<TRegistry> reg ( new TRegistry(KEY_WRITE) );
+  reg->RootKey = HKEY_USERS;
+  if (reg->OpenKey(strUserProfile + "\\" + strUserPath, false)) {
+    reg->CloseKey();
+    boolReadOnly = false;
   }
   // Get the path value
-  reg = new TRegistry(KEY_READ);
-  try {
-    reg->RootKey = HKEY_USERS;
-    if (reg->OpenKey(strUserProfile + "\\" + strUserPath, false)) {
-      strPath = reg->ReadString("Path");
-      reg->CloseKey();
-    }
-  } __finally {
-    delete reg;
+  reg.reset( new TRegistry(KEY_READ) );
+  reg->RootKey = HKEY_USERS;
+  if (reg->OpenKey(strUserProfile + "\\" + strUserPath, false)) {
+    strPath = reg->ReadString("Path");
+    reg->CloseKey();
   }
   return strPath;
 }
@@ -224,20 +198,14 @@ String __fastcall TfrmPathEditorMainForm::GetUserPath(String strUserProfile,
 **/
 void __fastcall TfrmPathEditorMainForm::SetSystemPath(String strPath) {
   const String strSysPath = "SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Environment\\";
-  TRegistry *reg = new TRegistry(KEY_WRITE);
-  try {
-    reg->RootKey = HKEY_LOCAL_MACHINE;
-    if (reg->KeyExists(strSysPath)) {
-      if (reg->OpenKey(strSysPath, false)) {
-        reg->WriteString("Path", strPath);
-        reg->CloseKey();
-      } else
-        MessageDlg("Cannot open the system path for writing!", mtError,
-          TMsgDlgButtons() << mbOK, 0);
-    }
-  }
-  __finally {
-    delete reg;
+  std::unique_ptr<TRegistry> reg ( new TRegistry(KEY_WRITE) );
+  reg->RootKey = HKEY_LOCAL_MACHINE;
+  if (reg->KeyExists(strSysPath)) {
+    if (reg->OpenKey(strSysPath, false)) {
+      reg->WriteExpandString("Path", strPath);
+      reg->CloseKey();
+    } else
+      MessageDlg("Cannot open the system path for writing!", mtError, TMsgDlgButtons() << mbOK, 0);
   }
 }
 
@@ -255,19 +223,13 @@ void __fastcall TfrmPathEditorMainForm::SetSystemPath(String strPath) {
 void __fastcall TfrmPathEditorMainForm::SetUserPath(String strUserProfile,
   String strPath) {
   const String strUserPath = "Environment\\";
-  TRegistry *reg = new TRegistry(KEY_WRITE);
-  try {
-    reg->RootKey = HKEY_USERS;
-    if (reg->OpenKey(strUserProfile + "\\" + strUserPath, false)) {
-      reg->WriteString("Path", strPath);
-      reg->CloseKey();
-    } else
-      MessageDlg("Cannot open the user path for writing!", mtError,
-        TMsgDlgButtons() << mbOK, 0);
-  }
-  __finally {
-    delete reg;
-  }
+  std::unique_ptr<TRegistry> reg ( new TRegistry(KEY_WRITE) );
+  reg->RootKey = HKEY_USERS;
+  if (reg->OpenKey(strUserProfile + "\\" + strUserPath, false)) {
+    reg->WriteExpandString("Path", strPath);
+    reg->CloseKey();
+  } else
+    MessageDlg("Cannot open the user path for writing!", mtError, TMsgDlgButtons() << mbOK, 0);
 }
 
 /**
@@ -392,39 +354,30 @@ void __fastcall TfrmPathEditorMainForm::FormCloseQuery(TObject *Sender, bool &Ca
 
 **/
 void __fastcall TfrmPathEditorMainForm::PopulateUserProfiles() {
-  TRegistry *reg = new TRegistry(KEY_READ);
-  try {
-    reg->RootKey = HKEY_USERS;
-    if (reg->OpenKey("", false)) {
-      TStringList *sl = new TStringList();
-      try {
-        reg->GetKeyNames(sl);
-        for (int i = 0; i < sl->Count; i++) {
-          if (reg->OpenKey(sl->Strings[i] + "\\Volatile Environment", false)) {
-            String strUserName = reg->ReadString("USERNAME");
-            cbxUserProfiles->Items->Add(strUserName + ": " + sl->Strings[i]);
-            reg->CloseKey();
-          }
-        }
-      } __finally {
-        delete sl;
-      }
-    }
-    reg->RootKey = HKEY_CURRENT_USER;
-    if (reg->OpenKey("Volatile Environment", false)) {
-      for (int i = 0; i < cbxUserProfiles->Items->Count; i++) {
+  std::unique_ptr<TRegistry> reg ( new TRegistry(KEY_READ) );
+  reg->RootKey = HKEY_USERS;
+  if (reg->OpenKey("", false)) {
+    std::unique_ptr<TStringList> sl ( new TStringList() );
+    reg->GetKeyNames(sl.get());
+    for (int i = 0; i < sl->Count; i++) {
+      if (reg->OpenKey(sl->Strings[i] + "\\Volatile Environment", false)) {
         String strUserName = reg->ReadString("USERNAME");
-        if (CompareText(strUserName, cbxUserProfiles->Items->Strings[i].SubString(1,
-          strUserName.Length())) == 0) {
-          cbxUserProfiles->ItemIndex = i;
-          cbxUserProfilesSelect(NULL);
-          break;
-        }
+        cbxUserProfiles->Items->Add(strUserName + ": " + sl->Strings[i]);
+        reg->CloseKey();
       }
     }
   }
-  __finally {
-    delete reg;
+  reg->RootKey = HKEY_CURRENT_USER;
+  if (reg->OpenKey("Volatile Environment", false)) {
+    for (int i = 0; i < cbxUserProfiles->Items->Count; i++) {
+      String strUserName = reg->ReadString("USERNAME");
+      if (CompareText(strUserName, cbxUserProfiles->Items->Strings[i].SubString(1,
+        strUserName.Length())) == 0) {
+        cbxUserProfiles->ItemIndex = i;
+        cbxUserProfilesSelect(NULL);
+        break;
+      }
+    }
   }
 }
 
@@ -510,8 +463,7 @@ void __fastcall TfrmPathEditorMainForm::BuildInfo(const String strFileName, int 
       delete[] VerInfo;
     }
   } else
-    ShowMessage("The executable """ + strFileName +
-      """ does not contain any version information.");
+    ShowMessage("The executable """ + strFileName + """ does not contain any version information.");
 }
 
 /**
