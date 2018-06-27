@@ -133,14 +133,14 @@ String __fastcall TfrmPathEditorMainForm::GetSystemPath(bool &boolReadOnly) {
   String strPath = "";
   // Find out if the key is read only.
   boolReadOnly = true;
-  TRegistry *reg = new TRegistry(KEY_WRITE);
+  std::unique_ptr<TRegistry> reg ( new TRegistry(KEY_WRITE) );
   reg->RootKey = HKEY_LOCAL_MACHINE;
   if (reg->OpenKey(strSysPath, false)) {
     reg->CloseKey();
     boolReadOnly = false;
   }
   // Get the path value
-  reg = new TRegistry(KEY_READ);
+  reg.reset( new TRegistry(KEY_READ) );
   reg->RootKey = HKEY_LOCAL_MACHINE;
   if (reg->KeyExists(strSysPath)) {
     if (reg->OpenKey(strSysPath, false)) {
@@ -169,26 +169,18 @@ String __fastcall TfrmPathEditorMainForm::GetUserPath(String strUserProfile,
   String strPath = "";
   // Find out if the key is read only
   boolReadOnly = true;
-  TRegistry *reg = new TRegistry(KEY_WRITE);
-  try {
-    reg->RootKey = HKEY_USERS;
-    if (reg->OpenKey(strUserProfile + "\\" + strUserPath, false)) {
-      reg->CloseKey();
-      boolReadOnly = false;
-    }
-  } __finally {
-    delete reg;
+  std::unique_ptr<TRegistry> reg ( new TRegistry(KEY_WRITE) );
+  reg->RootKey = HKEY_USERS;
+  if (reg->OpenKey(strUserProfile + "\\" + strUserPath, false)) {
+    reg->CloseKey();
+    boolReadOnly = false;
   }
   // Get the path value
-  reg = new TRegistry(KEY_READ);
-  try {
-    reg->RootKey = HKEY_USERS;
-    if (reg->OpenKey(strUserProfile + "\\" + strUserPath, false)) {
-      strPath = reg->ReadString("Path");
-      reg->CloseKey();
-    }
-  } __finally {
-    delete reg;
+  reg.reset( new TRegistry(KEY_READ) );
+  reg->RootKey = HKEY_USERS;
+  if (reg->OpenKey(strUserProfile + "\\" + strUserPath, false)) {
+    strPath = reg->ReadString("Path");
+    reg->CloseKey();
   }
   return strPath;
 }
