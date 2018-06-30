@@ -202,7 +202,10 @@ void __fastcall TfrmPathEditorMainForm::SetSystemPath(String strPath) {
   reg->RootKey = HKEY_LOCAL_MACHINE;
   if (reg->KeyExists(strSysPath)) {
     if (reg->OpenKey(strSysPath, false)) {
-      reg->WriteExpandString("Path", strPath);
+      if (strPath.Pos("%") > 0)
+        reg->WriteExpandString("Path", strPath);
+      else
+        reg->WriteString("Path", strPath);
       reg->CloseKey();
     } else
       MessageDlg("Cannot open the system path for writing!", mtError, TMsgDlgButtons() << mbOK, 0);
@@ -220,13 +223,15 @@ void __fastcall TfrmPathEditorMainForm::SetSystemPath(String strPath) {
   @param   strPath        as a String
 
 **/
-void __fastcall TfrmPathEditorMainForm::SetUserPath(String strUserProfile,
-  String strPath) {
+void __fastcall TfrmPathEditorMainForm::SetUserPath(String strUserProfile, String strPath) {
   const String strUserPath = "Environment\\";
   std::unique_ptr<TRegistry> reg ( new TRegistry(KEY_WRITE) );
   reg->RootKey = HKEY_USERS;
   if (reg->OpenKey(strUserProfile + "\\" + strUserPath, false)) {
-    reg->WriteExpandString("Path", strPath);
+    if (strPath.Pos("%") > 0)
+      reg->WriteExpandString("Path", strPath);
+    else
+      reg->WriteString("Path", strPath);
     reg->CloseKey();
   } else
     MessageDlg("Cannot open the user path for writing!", mtError, TMsgDlgButtons() << mbOK, 0);

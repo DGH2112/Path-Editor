@@ -9,8 +9,8 @@ IncludeInProject=1
 CompileWithBRCC32=0
 MajorVer=1
 MinorVer=0
-ReleaseVer=3
-BuildVer=171
+ReleaseVer=4
+BuildVer=175
 ResourceName=PathEditorITHVerInfo
 
 [Zipping]
@@ -19,18 +19,18 @@ ZipFile=D:\Documents\Web Page\Zips\PathEditor-1.0c.zip
 BasePath=D:\Documents\RAD Studio\
 ExclusionFiles=
 
+[Additional Zip Files]
+Item0=D:\Documents\RAD Studio\Applications\Path Editor\images\*.*
+
 [VersionInfo]
 CompanyName=Season's Fall Music
 FileDescription=Path Editor
-FileVersion=1.0.3.171
+FileVersion=1.0.4.175
 InternalName=PathEditor
 LegalCopyright=Season's Fall Music
 LegalTrademarks=Season's Fall Music
 OriginalFilename=PathEditor
 ProductName=PathEditor
-ProductVersion=1.0c
+ProductVersion=1.0d
 Comments=An applcation to edit system and user paths
-
-[Additional Zip Files]
-Item0=D:\Documents\RAD Studio\Applications\Path Editor\images\*.*
 
